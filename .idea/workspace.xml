@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e158fb7d-345c-42ac-ba3c-314bd62ed61b" name="Changes" comment="Add requirements file">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="e158fb7d-345c-42ac-ba3c-314bd62ed61b" name="Changes" comment="Add Dockerfile">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Energy generation_tabs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Energy generation_tabs.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +124,7 @@
       <updated>1713199301955</updated>
       <workItem from="1713199302946" duration="4143000" />
       <workItem from="1713204596457" duration="377000" />
-      <workItem from="1713803201648" duration="655000" />
+      <workItem from="1713803201648" duration="2895000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -148,7 +150,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713204423277</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add Dockerfile">
+      <option name="closed" value="true" />
+      <created>1713804096981</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1713804096981</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -169,7 +179,8 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="Dont use the .idea file" />
     <MESSAGE value="Add requirements file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add requirements file" />
+    <MESSAGE value="Add Dockerfile" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add Dockerfile" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Dashboard_energy$Energy_generation_tabs.coverage" NAME="Energy generation_tabs Coverage Results" MODIFIED="1713204607816" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
