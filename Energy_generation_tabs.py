@@ -239,5 +239,4 @@ def update_graph_tab2(value_year, technology):
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0', port=8050)
-    server = app.server
+    app.run(debug=False, host='0.0.0.0', port=9000)
