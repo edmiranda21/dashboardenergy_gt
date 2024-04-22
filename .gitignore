@@ -2,5 +2,5 @@
 venv
 *.pyc
 .env
-.idea
 .DS_Store
+.xml
