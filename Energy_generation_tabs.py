@@ -64,6 +64,8 @@ Analizar el comportamiento de las plantas generadoras de energía eléctrica en 
 
 # Create a Dash app
 app = Dash(__name__, suppress_callback_exceptions=True)
+# For deployment with gunicorn
+server = app.server
 
 app.layout = html.Div(children=[
     html.H1(children='Plantas de generación eléctrica en Guatemala',

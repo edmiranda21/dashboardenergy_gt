@@ -1,0 +1,1 @@
+web: gunicorn Energy_generation_tabs:server

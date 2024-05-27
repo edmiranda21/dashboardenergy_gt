@@ -4,3 +4,6 @@ venv
 .env
 .DS_Store
 .xml
+misc.xml
+workspace.xml
+Dashboard_energy.iml
