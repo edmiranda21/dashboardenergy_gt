@@ -231,7 +231,7 @@ def update_graph_tab2(value_year, technology):
                              name=str(set_technology), marker=dict(color=colors_plants[set_technology])),
                   secondary_y=False)
 
-    fig.add_trace(go.Scatter(x=ts_copy['Date'], y=ts_copy['Anom'], name='Anomalie- El Niño',
+    fig.add_trace(go.Scatter(x=ts_copy.index, y=ts_copy['Anom'], name='Anomalie- El Niño',
                              marker=dict(color='red', opacity=0.1), fill='tozeroy'), secondary_y=True)
 
     fig.update_layout(
