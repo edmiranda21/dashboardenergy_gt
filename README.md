@@ -16,8 +16,8 @@ You will find two tabs in this dashboard
 <br>
 
 ###  **All the cleaning and processing are in jupyter notebook:**
-* The [first jupyter notebook](Energy_demand_gt.ipynb) is used to extract, load and transform the data from various *csv files, each file represent a year of montly generation of energy by different technologies.
-* The [second jupyter notebook](Climate.ipynb) is used to extract, load and transform the Information obtained climate for Monthly Niño-3.4 index.
+* The [first jupyter notebook](Data_process/Energy_demand_gt.ipynb) is used to extract, load and transform the data from various *csv files, each file represent a year of montly generation of energy by different technologies.
+* The [second jupyter notebook](Data_process/Climate.ipynb) is used to extract, load and transform the Information obtained climate for Monthly Niño-3.4 index.
 * *Each notebook has a description of the code and the steps to follow to run the code.*
 
 **The data used in this project are from the following sources:**
