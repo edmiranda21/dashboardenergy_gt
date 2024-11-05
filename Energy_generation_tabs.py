@@ -36,30 +36,33 @@ colors_plants = {'Hidroeléctrica': 'blue', 'Turbina de Vapor': 'red', 'Turbina 
                  'Biomasa': 'coral'}
 
 mardown_text_intro = '''
-    El presente dashboard tiene como objectivo desmostrar mis habilidades en el manejo de datos y visualización de información, luego de
-    haber obtenido la información del siguiente script elaborado por mi persona: [GitHub](https://github.com/).
+    This dashboard showcases my skills in data management and information visualization using
+    data obtained from a custom script I created: [Jupyter Notebook](Data_process/Energy_data_clean.ipynb).
+    
+    The dashboard provides an overview of Guatemala's electricity market from 2004 to 2023, allowing
+    users to explore electricity generation by technology type across various visualizations.
 
-    La información a visualizar es una imagen del mercado eléctrico de Guatemala a través de los años 2004 - 2023, donde
-    es posible visualizar la generación electrica por tipo de tecnología en distintas visualizaciones.
 
+    You will find two tabs with the following information:
+    * **First Tab**: Visualize electricity generation by technology over the years with three types of visualization: Line plot, Boxplot, Heatmap and a Pie Chart.
+    * **Second Tab**: Visualize electricity generation by technology over the years with the incorporation of the influence of the Niño–Southern Oscillation on power generation.
+    
+    &nbsp;
 
-    Su persona encontrará dos Tabs con la siguiente información:
-    * **Primer Tab**: visualizar la generación eléctrica por tecnología a traves de los años con tres tipos de visualización: Line plot, Boxplot, Heatmap y un diagrama de pastel.
-    * **Segunda Tab**: visualizar la generación eléctrica por tecnología a traves de los años con la incorporación de la influencia del fenómeno de El Niño en la generación de energía eléctrica.
-
-   > _Todo los creditos a la información original se encuentran en el portal: [AMM, Administrator de Mercado Mayorista](https://reportesbi.amm.org.gt)._
-
+    **Note: the technology names will be keep in spanish, as the original data is in spanish.**
+    > _All credits to the original information can be found on the website: [AMM, Administrator de Mercado Mayorista](https://reportesbi.amm.org.gt)._
+    
     '''
 
 mardown_tab1 = '''
-Analizar el comportamiento de las plantas generadoras de energía eléctrica en Guatemala durante los años 2004-2023. Se analizarán tres aspectos:
-* Generación de la tecnología a lo largo del tiempo
-* Generación de la tecnología por mes, con la ayuda de un mapa de calor
+To analyze the behavior of electric power generation plants in Guatemala during the years 2004 - 2023. Three aspects will be analyzed:
+* Technology generation over time
+* Technology generation per month, with the help of a Heatmap
                         '''
 
 mardown_tab2 = '''
-Analizar el comportamiento de las plantas generadoras de energía eléctrica en Guatemala durante los años 2004-2023. Se analizará el aspecto:
-* Influencia del fenómeno de El Niño en la generación de energía eléctrica
+To analyze the behavior of the electric power generation plants in Guatemala during the years 2004 - 2023. The following aspects will be analyzed:
+* Influence of the El Niño–Southern Oscillation on power generation
 '''
 
 # Create a Dash app
@@ -68,13 +71,13 @@ app = Dash(__name__, suppress_callback_exceptions=True)
 server = app.server
 
 app.layout = html.Div(children=[
-    html.H1(children='Plantas de generación eléctrica en Guatemala',
+    html.H1(children='Power Plants in Guatemala',
             style={'textAlign': 'center'}),
     dcc.Markdown(mardown_text_intro),
     dcc.Tabs(id='Tabs-single-choice', value='tabs',
              children=[
-                 dcc.Tab(label='Generación eléctrica', value='tab-1'),
-                 dcc.Tab(label='Clima y energía', value='tab-2'),
+                 dcc.Tab(label='Power Generation', value='tab-1'),
+                 dcc.Tab(label='Climate & Energy', value='tab-2'),
              ]),
     html.Div(id='tabs-content'),
 ])
@@ -87,16 +90,16 @@ app.layout = html.Div(children=[
 def render_content(tab):
     if tab == 'tab-1':
         return html.Div(children=[
-            html.H2(children='Generación eléctrica por tipo de tecnología',
+            html.H2(children='Power Generation by Technology',
                     style={'textAlign': 'center'}),
             html.Div(children=[dcc.Markdown(mardown_tab1)]),
-            html.H4('Seleccione el año'),
+            html.H4('Select the year'),
             dcc.Dropdown(id='select_year_tab1',
                          options=ts_unique_years,
                          value=[2018, 2019, 2020, 2021, 2022, 2023],  # Needed if multi=True
                          multi=True),
 
-            html.H4('Seleccione el tipo de tecnología'),
+            html.H4('Select the type of technology'),
             dcc.Dropdown(id='select_technology_tab1',
                          options=ts_unique_technology,
                          value='Hidroeléctrica',
@@ -113,17 +116,17 @@ def render_content(tab):
 
     elif tab == 'tab-2':
         return html.Div(children=[
-            html.H2(children='Generación eléctrica y clima',
+            html.H2(children='Power Generation and Climate',
                     style={'textAlign': 'center'}),
             html.Div(children=[dcc.Markdown(mardown_tab2)]),
 
-            html.H4('Seleccione el año'),
+            html.H4('Select the year'),
             dcc.Dropdown(id='select_year_tab2',
                          options=ts_unique_years,
                          value=[2018, 2019, 2020, 2021, 2022, 2023],  # Needed if multi=True
                          multi=True),
 
-            html.H4('Seleccione el tipo de tecnología'),
+            html.H4('Select the type of technology'),
             dcc.Dropdown(id='select_technology_tab2',
                          options=ts_unique_technology2,
                          value='Hidroeléctrica',
@@ -155,20 +158,20 @@ def update_graph_tab1(value_year, technology):
     # Use a filter with query
     ts_copy = ts_copy[ts_copy['Año'].isin(select_year) & ts_copy['Tipo de generación'].isin(set_technology)]
     # set global variables
-    title_text_line = (f"<b>Generación eléctrica de {technology} para los años "
+    title_text_line = (f"<b>Power generation of {technology} for the years "
                        f"[{min(ts_copy.index.year)} - {max(ts_copy.index.year)}]</b>")
-    title_text_boxplot = (f"<b>Generación eléctrica mensual de {technology} para los años "
+    title_text_boxplot = (f"<b>Montly power geneartion of {technology} for the years "
                           f"[{min(ts_copy.index.year)} - {max(ts_copy.index.year)}]</b>")
-    title_text_heatmap = (f"<b>Distribución de la Generación eléctrica de {technology} para los años "
+    title_text_heatmap = (f"<b>Electricity Generation Distribution for {technology} for the years "
                           f"[{min(ts_copy.index.year)} - {max(ts_copy.index.year)}]</b>")
 
     # Create a line plot with the selected data from the ts_copy dataframe
     fig_line = px.line(ts_copy, x=ts_copy.index, y='Generación [GWh]', color="Tipo de generación",
                        color_discrete_map=colors_plants)
     fig_line.update_layout(title=title_text_line,
-                           xaxis_title='Año',
-                           yaxis_title='Generación (GWh)',
-                           legend_title='Planta')
+                           xaxis_title='Year',
+                           yaxis_title='Generation [GWh]',
+                           legend_title='Power Plant')
     # set y range values manual
     fig_line.update_yaxes(range=[0, ts_copy['Generación [GWh]'].max() * 1.15])
 
@@ -176,8 +179,9 @@ def update_graph_tab1(value_year, technology):
     fig_box = px.box(ts_copy, x='Mes', y='Generación [GWh]', color='Tipo de generación',
                      color_discrete_map=colors_plants)
     fig_box.update_yaxes(range=[0, ts_copy['Generación [GWh]'].max() * 1.15])
-    fig_box.update_layout(title_text=title_text_boxplot, showlegend=False, title_font={"size": 15})
-    fig_box.update_yaxes(title_text="Generación [GWh]", titlefont=dict(size=13))
+    fig_box.update_layout(title_text=title_text_boxplot, showlegend=False, title_font={"size": 15},
+                          xaxis_title='Month')
+    fig_box.update_yaxes(title_text="Generation [GWh]", titlefont=dict(size=13))
 
     # Figure of Heatmap
     fig_heat = go.Figure()
@@ -185,16 +189,16 @@ def update_graph_tab1(value_year, technology):
         x=ts_copy['Año'],
         y=ts_copy['Mes'],
         z=ts_copy['Generación [GWh]'],
-        colorscale='spectral', colorbar=dict(title='Generación [GWh]', titleside='right')))
-    fig_heat.update_yaxes(range=[0, 12], title_text="Mes", titlefont=dict(size=13))
-    fig_heat.update_xaxes(range=[min(ts_copy.index.year), max(ts_copy.index.year)], title_text='Año',
+        colorscale='spectral', colorbar=dict(title='Generation [GWh]', titleside='right')))
+    fig_heat.update_yaxes(range=[0, 12], title_text="Month", titlefont=dict(size=13))
+    fig_heat.update_xaxes(range=[min(ts_copy.index.year), max(ts_copy.index.year)], title_text='Year',
                           titlefont=dict(size=13))
     fig_heat.update_layout(title=title_text_heatmap, showlegend=False, title_font={"size": 15})
-    fig_heat.update_traces(hovertemplate="Mes: %{x}<br>Tipo de generación: %{y}<br>Generación [GWh]: %{z:.3f}")
+    fig_heat.update_traces(hovertemplate="Month: %{x}<br>Type of power plant: %{y}<br>Generation [GWh]: %{z:.3f}")
 
     # Figure of Pie chart to show the percentage of the plant select for each month
     fig_pie = px.pie(ts_copy, values='Generación [GWh]', names='Año',
-                     title=f"<b>% de Generación eléctrica por {technology} para los años "
+                     title=f"<b>Percent of power plant by {technology} for the years "
                            f"[{min(ts_copy.index.year)} - {max(ts_copy.index.year)}]</b>",
                      color_discrete_map=px.colors.qualitative.Set3)
     fig_pie.update_traces(textposition='inside', textinfo='percent+label',
@@ -231,11 +235,17 @@ def update_graph_tab2(value_year, technology):
                              name=str(set_technology), marker=dict(color=colors_plants[set_technology])),
                   secondary_y=False)
 
-    fig.add_trace(go.Scatter(x=ts_copy.index, y=ts_copy['Anom'], name='Anomalie- El Niño',
+    fig.add_trace(go.Scatter(x=ts_copy.index, y=ts_copy['Anom'], name='Anomalie-El Niño',
                              marker=dict(color='red', opacity=0.1), fill='tozeroy'), secondary_y=True)
 
+    fig.update_yaxes(range=[0, ts_copy['Generación [GWh]'].max() * 1.15],
+                     secondary_y=False)
+
     fig.update_layout(
-        title=f"<b>Generación eléctrica por tipo de tecnología para los años {min(ts_copy.index.year)} - {max(ts_copy.index.year)}</b>")
+        title=f"<b>Power generation for technology for the years "
+              f"{min(ts_copy.index.year)} - {max(ts_copy.index.year)}</b>",
+        xaxis_title='Year',
+        yaxis_title='Generation [GWh]')
 
     return fig
 

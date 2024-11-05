@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e158fb7d-345c-42ac-ba3c-314bd62ed61b" name="Changes" comment="Working without the expose">
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
+    <list default="true" id="e158fb7d-345c-42ac-ba3c-314bd62ed61b" name="Changes" comment="Micro update, readme file">
+      <change beforePath="$PROJECT_DIR$/.idea/Dashboard_energy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Dashboard_energy.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Energy_generation_tabs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Energy_generation_tabs.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +91,6 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.9 (Dashboard_energy)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -161,8 +162,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-PY-241.15989.155" />
-        <option value="bundled-python-sdk-babbdf50b680-7c6932dee5e4-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.15989.155" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PY-242.23726.102" />
+        <option value="bundled-python-sdk-5e1850174b45-399fe30bd8c1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.23726.102" />
       </set>
     </attachedChunks>
   </component>
@@ -180,7 +181,12 @@
       <workItem from="1713809057970" duration="3115000" />
       <workItem from="1716238155465" duration="42000" />
       <workItem from="1716238205107" duration="7460000" />
-      <workItem from="1716312422486" duration="719000" />
+      <workItem from="1716312422486" duration="2122000" />
+      <workItem from="1716826014764" duration="4933000" />
+      <workItem from="1716842628146" duration="2247000" />
+      <workItem from="1716994858610" duration="1158000" />
+      <workItem from="1726242495055" duration="80000" />
+      <workItem from="1730822565212" duration="4411000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -230,7 +236,31 @@
       <option name="project" value="LOCAL" />
       <updated>1713811513525</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Update port name to upload in HS">
+      <option name="closed" value="true" />
+      <created>1716313371481</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1716313371481</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Update with gunicorn">
+      <option name="closed" value="true" />
+      <created>1716830857633</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1716830857633</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Micro update, readme file">
+      <option name="closed" value="true" />
+      <created>1716845094524</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1716845094524</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -254,10 +284,13 @@
     <MESSAGE value="Add Dockerfile" />
     <MESSAGE value="Syntax clean" />
     <MESSAGE value="Working without the expose" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working without the expose" />
+    <MESSAGE value="Update port name to upload in HS" />
+    <MESSAGE value="Update with gunicorn" />
+    <MESSAGE value="Micro update, readme file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Micro update, readme file" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Dashboard_energy$Energy_generation_tabs.coverage" NAME="Energy_generation_tabs Coverage Results" MODIFIED="1713807784840" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Dashboard_energy$Relation_enos.coverage" NAME="Relation_enos Coverage Results" MODIFIED="1716238813776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Dashboard_energy$Energy_generation_tabs.coverage" NAME="Energy_generation_tabs Coverage Results" MODIFIED="1730826936966" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
