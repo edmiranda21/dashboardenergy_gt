@@ -1,7 +1,9 @@
 # Import libraries
 import pandas as pd
+pd.options.mode.copy_on_write = True
 from pathlib import Path
 import os
+import time
 # libraries to plot
 import plotly.express as px
 import plotly.graph_objects as go
@@ -9,10 +11,18 @@ from plotly.subplots import make_subplots
 import plotly.io as pio
 from dash import Dash, dcc, html, Input, Output, callback, dash_table
 
+from dotenv import load_dotenv
+from huggingface_hub import InferenceClient
+
 pio.templates.default = 'plotly_white'  # set as template
 
 # visit http://127.0.0.1:8050/ in your web browser.
 
+# Hugging Face API
+load_dotenv()
+token = os.environ.get('HUGGINGFACE_TOKEN')
+# Load the model via Inference API (Serverless)
+client = InferenceClient("meta-llama/Meta-Llama-3-8B-Instruct", token=token)
 
 # Working directory
 current_dir = os.getcwd()
@@ -20,7 +30,7 @@ working_dir = Path(current_dir) / 'csv_files'
 
 
 # Load and process the data
-ts = pd.read_csv(working_dir / 'energy_ENOS_2004-2023.csv', encoding='utf8', index_col=0)
+ts = pd.read_csv(working_dir / 'energy_ENOS_2004-2024.csv', encoding='utf8', index_col=0)
 ts.index = pd.to_datetime(ts.index)
 
 
@@ -39,7 +49,7 @@ mardown_text_intro = '''
     This dashboard showcases my skills in data management and information visualization using
     data obtained from a custom script I created: [Jupyter Notebook](Data_process/Energy_data_clean.ipynb).
     
-    The dashboard provides an overview of Guatemala's electricity market from 2004 to 2023, allowing
+    The dashboard provides an overview of Guatemala's electricity market from 2004 to 2024, allowing
     users to explore electricity generation by technology type across various visualizations.
 
 
@@ -55,15 +65,111 @@ mardown_text_intro = '''
     '''
 
 mardown_tab1 = '''
-To analyze the behavior of electric power generation plants in Guatemala during the years 2004 - 2023. Three aspects will be analyzed:
+To analyze the behavior of electric power generation plants in Guatemala during the years 2004 - 2024. Three aspects will be analyzed:
 * Technology generation over time
 * Technology generation per month, with the help of a Heatmap
                         '''
 
 mardown_tab2 = '''
-To analyze the behavior of the electric power generation plants in Guatemala during the years 2004 - 2023. The following aspects will be analyzed:
+To analyze the behavior of the electric power generation plants in Guatemala during the years 2004 - 2024. The following aspects will be analyzed:
 * Influence of the El Niño–Southern Oscillation on power generation
 '''
+
+context = """
+You are EnergyAnalyst, a data expert specializing in electricity generation analysis.
+Your task is to analyze a filtered dataset and extract 4 key insights as bullet points.
+Follow these rules:
+
+1. **Focus on**:
+   - Trends (growth/decline)
+   - Seasonal patterns
+   - Year-over-year comparisons
+   - Anomalies (unexpected spikes/drops)
+
+2. **Simplify**: Explain technical terms (e.g., "capacity factor" → "efficiency").
+3. **Structure**: Use 4 bullet points for markdown with → emojis for clarity.
+4. **Highlight**: Include numbers, percentages, and comparisons to prior years.
+
+Example output for solar data:
+📈 → Solar generation grew 15% YoY in 2023, peaking in July (200 GWh).
+🌞 → Summer months produced 40% more energy than winter.
+🆚 → 2023 output surpassed 2022 by 25 GWh/month on average.
+⚠️ → February showed a 30% drop (likely due to panel maintenance).
+
+The information will be: Type of chart plot, type of technology, years and monthly generation [GWh].
+Now analyze this data and provide it as markdown text:
+"""
+
+context_tab2 = """
+You are ClimateEnergy Analyst, an expert in linking weather patterns to hydropower performance. 
+Analyze the filtered hydroelectric generation data with El Niño annotations and provide 4 bullet points:
+
+1. **Focus Areas**:
+   - Correlation between El Niño years and generation drops
+   - Seasonal/monthly patterns (dry vs. wet seasons)
+   - Recovery trends post-El Niño
+   - Year-over-year comparisons of anomaly periods
+
+2. **Rules**:
+   - Use 🌧️/🔥 emojis for weather impacts
+   - Include % changes and GWh values
+   - Highlight operational resilience
+   - Compare anomaly years to historical averages
+
+Example format:
+🌧️ → [Impact description]  
+🔥 → [Anomaly effect]  
+📆 → [Seasonal pattern]  
+🔄 → [Recovery trend]
+
+Now analyze this data:
+"""
+
+
+#Tab 1
+def set_message(text_input_model):
+    message = [
+        {'role': "system", "content": context},
+        {"role": "user", "content": text_input_model}
+    ]
+    completion = client.chat.completions.create(messages=message,
+                                                max_tokens=800,
+                                                temperature=0,)
+    return completion.choices[0].message.content
+
+
+def extract_data_chart(dataframe_input, type_chart):
+    dataframe_input['Generación [GWh]'] = dataframe_input['Generación [GWh]'].round(3)
+    dataframe_chart = dataframe_input[['Tipo de generación','Generación [GWh]']]
+    return (
+            f"The type of chart for analysis is {type_chart}\n"
+            f"Technology: {dataframe_chart['Tipo de generación'].iloc[0]}\n"
+            f"Years: {dataframe_chart.index.year.unique().tolist()}\n"
+            "Monthly Generación [GWh]:\n" +
+            dataframe_chart['Generación [GWh]'].reset_index().to_string(index=False)
+    )
+
+#Tab 2
+def set_message_tab2(text_input_model):
+    message = [
+        {'role': "system", "content": context_tab2},
+        {"role": "user", "content": text_input_model}
+    ]
+    completion = client.chat.completions.create(messages=message,
+                                                max_tokens=800,
+                                                temperature=0,)
+    return completion.choices[0].message.content
+
+
+def extract_data_chart_tab2(dataframe_input):
+    dataframe_input['Generación [GWh]'] = dataframe_input['Generación [GWh]'].round(3)
+    dataframe_chart = dataframe_input[['Tipo de generación','Generación [GWh]']]
+    return (
+            f"Technology: {dataframe_chart['Tipo de generación'].iloc[0]}\n"
+            f"Years: {dataframe_chart.index.year.unique().tolist()}\n"
+            "Monthly Generación [GWh]:\n" +
+            dataframe_chart['Generación [GWh]'].reset_index().to_string(index=False)
+    )
 
 # Create a Dash app
 app = Dash(__name__, suppress_callback_exceptions=True)
@@ -96,7 +202,7 @@ def render_content(tab):
             html.H4('Select the year'),
             dcc.Dropdown(id='select_year_tab1',
                          options=ts_unique_years,
-                         value=[2018, 2019, 2020, 2021, 2022, 2023],  # Needed if multi=True
+                         value=[2018, 2019, 2020, 2021, 2022, 2023, 2024],  # Needed if multi=True
                          multi=True),
 
             html.H4('Select the type of technology'),
@@ -112,6 +218,25 @@ def render_content(tab):
                 html.Div(dcc.Graph(id='heat-map', figure={}), style={'display': 'inline-block'})]),
 
             dcc.Graph(id='pie-graph', figure={}),
+
+            # Add an analysis of a LLM chatbot
+            html.Div(id='chatbot-response',
+                children=[
+                html.Div(dcc.Markdown('''
+            #### LLM Chatbot response
+            Select the chart to analyze the data and extract 4 key insights as bullet points.
+                ''')),
+                    dcc.RadioItems(options=['Line plot','Boxplot','Heatmap'],
+                                   # value ='Line plot',
+                                   inline=True,
+                                   id='loading-option'),
+                    dcc.Loading(
+                        id="loading",
+                        type='circle',
+                        children=html.Div(id='loading-output')
+                    )
+            ])
+
         ])
 
     elif tab == 'tab-2':
@@ -123,7 +248,7 @@ def render_content(tab):
             html.H4('Select the year'),
             dcc.Dropdown(id='select_year_tab2',
                          options=ts_unique_years,
-                         value=[2018, 2019, 2020, 2021, 2022, 2023],  # Needed if multi=True
+                         value=[2018, 2019, 2020, 2021, 2022, 2023, 2024],  # Needed if multi=True
                          multi=True),
 
             html.H4('Select the type of technology'),
@@ -132,7 +257,17 @@ def render_content(tab):
                          value='Hidroeléctrica',
                          multi=False),
 
-            dcc.Graph(id='energy-graph-climate-tab2', figure={})
+            dcc.Graph(id='energy-graph-climate-tab2', figure={}),
+
+            # Add an analysis of a LLM chatbot
+            html.Div(id='chatbot-responsetab2',
+                children=[
+                html.Div(dcc.Markdown('''
+#### Analysis by Meta Llama 3-8B
+Testing
+  '''))
+            ])
+
         ])
 
 
@@ -141,11 +276,13 @@ def render_content(tab):
 @app.callback([Output(component_id='energy-graph', component_property='figure'),
                Output(component_id='blox-plot', component_property='figure'),
                Output(component_id='heat-map', component_property='figure'),
-               Output(component_id='pie-graph', component_property='figure')],
+               Output(component_id='pie-graph', component_property='figure'),
+               Output("loading-output", "children")],
               [Input(component_id='select_year_tab1', component_property='value'),
-               Input(component_id='select_technology_tab1', component_property='value')])
+               Input(component_id='select_technology_tab1', component_property='value'),
+               Input("loading-option", "value")])
 # Set the function to update the graphs
-def update_graph_tab1(value_year, technology):
+def update_graph_tab1(value_year, technology, chart_type):
     if len(value_year) == 1:
         select_year = value_year
     else:
@@ -205,10 +342,22 @@ def update_graph_tab1(value_year, technology):
                           insidetextorientation='radial',
                           marker=dict(line=dict(color='black', width=2)))
 
-    return fig_line, fig_box, fig_heat, fig_pie
+    # Add the analysis of the chatbot
+    def update_loading_response(value):
+
+        if value == None:
+            return f'No chart selected for analysis'
+        else:
+            return (f"You selected {value} and the analysis is:\n"
+                    f"\n"
+                    # f"{extract_data_chart(ts_copy, value)}")
+                    f"{set_message(extract_data_chart(ts_copy, value))}")
+
+    return fig_line, fig_box, fig_heat, fig_pie, dcc.Markdown(update_loading_response(chart_type))
 
 
-@app.callback(Output(component_id='energy-graph-climate-tab2', component_property='figure'),
+@app.callback([Output(component_id='energy-graph-climate-tab2', component_property='figure'),
+               Output('chatbot-responsetab2', 'children')],
               [Input(component_id='select_year_tab2', component_property='value'),
                Input(component_id='select_technology_tab2', component_property='value')])
 # Set the function to update the graphs
@@ -247,7 +396,8 @@ def update_graph_tab2(value_year, technology):
         xaxis_title='Year',
         yaxis_title='Generation [GWh]')
 
-    return fig
+
+    return fig, dcc.Markdown(set_message_tab2(extract_data_chart_tab2(ts_copy)))
 
 
 if __name__ == '__main__':
