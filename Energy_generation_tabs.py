@@ -13,6 +13,7 @@ from dash import Dash, dcc, html, Input, Output, callback, dash_table
 
 from dotenv import load_dotenv
 from huggingface_hub import InferenceClient
+from Text import context_tab1 ,context_tab2
 
 pio.templates.default = 'plotly_white'  # set as template
 
@@ -75,66 +76,17 @@ To analyze the behavior of the electric power generation plants in Guatemala dur
 * Influence of the El Niño–Southern Oscillation on power generation
 '''
 
-context = """
-You are EnergyAnalyst, a data expert specializing in electricity generation analysis.
-Your task is to analyze a filtered dataset and extract 4 key insights as bullet points.
-Follow these rules:
-
-1. **Focus on**:
-   - Trends (growth/decline)
-   - Seasonal patterns
-   - Year-over-year comparisons
-   - Anomalies (unexpected spikes/drops)
-
-2. **Simplify**: Explain technical terms (e.g., "capacity factor" → "efficiency").
-3. **Structure**: Use 4 bullet points for markdown with → emojis for clarity.
-4. **Highlight**: Include numbers, percentages, and comparisons to prior years.
-
-Example output for solar data:
-📈 → Solar generation grew 15% YoY in 2023, peaking in July (200 GWh).
-🌞 → Summer months produced 40% more energy than winter.
-🆚 → 2023 output surpassed 2022 by 25 GWh/month on average.
-⚠️ → February showed a 30% drop (likely due to panel maintenance).
-
-The information will be: Type of chart plot, type of technology, years and monthly generation [GWh].
-Now analyze this data and provide it as markdown text:
-"""
-
-context_tab2 = """
-You are ClimateEnergy Analyst, an expert in linking weather patterns to hydropower performance. 
-Analyze the filtered hydroelectric generation data with El Niño annotations and provide 4 bullet points:
-
-1. **Focus Areas**:
-   - Correlation between El Niño years and generation drops
-   - Seasonal/monthly patterns (dry vs. wet seasons)
-   - Recovery trends post-El Niño
-   - Year-over-year comparisons of anomaly periods
-
-2. **Rules**:
-   - Use 🌧️/🔥 emojis for weather impacts
-   - Include % changes and GWh values
-   - Highlight operational resilience
-   - Compare anomaly years to historical averages
-
-Example format:
-🌧️ → [Impact description]  
-🔥 → [Anomaly effect]  
-📆 → [Seasonal pattern]  
-🔄 → [Recovery trend]
-
-Now analyze this data:
-"""
-
-
 #Tab 1
 def set_message(text_input_model):
     message = [
-        {'role': "system", "content": context},
+        {'role': "system", "content": context_tab1},
         {"role": "user", "content": text_input_model}
     ]
     completion = client.chat.completions.create(messages=message,
                                                 max_tokens=800,
-                                                temperature=0,)
+                                                temperature=0)
+
+
     return completion.choices[0].message.content
 
 
@@ -163,12 +115,12 @@ def set_message_tab2(text_input_model):
 
 def extract_data_chart_tab2(dataframe_input):
     dataframe_input['Generación [GWh]'] = dataframe_input['Generación [GWh]'].round(3)
-    dataframe_chart = dataframe_input[['Tipo de generación','Generación [GWh]']]
+    dataframe_chart = dataframe_input[['Tipo de generación','Generación [GWh]','Anom']]
     return (
             f"Technology: {dataframe_chart['Tipo de generación'].iloc[0]}\n"
             f"Years: {dataframe_chart.index.year.unique().tolist()}\n"
             "Monthly Generación [GWh]:\n" +
-            dataframe_chart['Generación [GWh]'].reset_index().to_string(index=False)
+            dataframe_chart[['Generación [GWh]','Anom']].reset_index().to_string(index=False)
     )
 
 # Create a Dash app
@@ -254,7 +206,7 @@ def render_content(tab):
             html.H4('Select the type of technology'),
             dcc.Dropdown(id='select_technology_tab2',
                          options=ts_unique_technology2,
-                         value='Hidroeléctrica',
+                         value='Fotovoltaica',
                          multi=False),
 
             dcc.Graph(id='energy-graph-climate-tab2', figure={}),
