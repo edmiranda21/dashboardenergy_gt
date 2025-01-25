@@ -212,13 +212,17 @@ def render_content(tab):
             dcc.Graph(id='energy-graph-climate-tab2', figure={}),
 
             # Add an analysis of a LLM chatbot
-            html.Div(id='chatbot-responsetab2',
-                children=[
-                html.Div(dcc.Markdown('''
-#### Analysis by Meta Llama 3-8B
-Testing
-  '''))
-            ])
+            html.Div(children=[
+                html.H2(children='Analysis by Meta Llama 3-8B',
+                        style={'textAlign': 'center'}),
+                html.Button('Generate Analysis', id='button_analysis', n_clicks=0, disabled=False),
+                html.Div(id='chatbot-responsetab2',
+                         children='Display the analysis here')
+        ])
+#             html.Div(id='chatbot-responsetab2',
+#                 children=[
+#                 html.Div(dcc.Markdown())
+#             ])
 
         ])
 
@@ -309,11 +313,14 @@ def update_graph_tab1(value_year, technology, chart_type):
 
 
 @app.callback([Output(component_id='energy-graph-climate-tab2', component_property='figure'),
-               Output('chatbot-responsetab2', 'children')],
+               Output('chatbot-responsetab2', 'children'),
+               Output('button_analysis', 'disabled')], # Disable button
               [Input(component_id='select_year_tab2', component_property='value'),
-               Input(component_id='select_technology_tab2', component_property='value')])
+               Input(component_id='select_technology_tab2', component_property='value'),
+               Input('button_analysis', 'n_clicks'),
+               ],)
 # Set the function to update the graphs
-def update_graph_tab2(value_year, technology):
+def update_graph_tab2(value_year, technology, n_clicks):
     if len(value_year) == 1:
         select_year = value_year
     else:
@@ -348,8 +355,23 @@ def update_graph_tab2(value_year, technology):
         xaxis_title='Year',
         yaxis_title='Generation [GWh]')
 
+    # Add the button to generate the analysis
+    def send_analysis(clicks, dataframe):
+        if clicks is None or clicks == 0:
+            return 'No analysis generated', False
 
-    return fig, dcc.Markdown(set_message_tab2(extract_data_chart_tab2(ts_copy)))
+        if clicks == 2:
+            message = '❌You have reached the limit of 1 analysis'
+            return message, True
+
+        else:
+            message = f'{set_message_tab2(extract_data_chart_tab2(dataframe))}'
+            # message = f'{extract_data_chart_tab2(dataframe)}'
+            return message, False
+
+    output_message,disable_button = send_analysis(n_clicks, ts_copy)
+
+    return fig, dcc.Markdown(output_message),disable_button
 
 
 if __name__ == '__main__':
