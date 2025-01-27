@@ -9,11 +9,11 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import plotly.io as pio
-from dash import Dash, dcc, html, Input, Output, callback, dash_table
+from dash import Dash, dcc, html, Input, Output, callback, dash_table, State
 
 from dotenv import load_dotenv
 from huggingface_hub import InferenceClient
-from Text import context_tab1 ,context_tab2
+from Text import mardown_text_intro, mardown_tab1, mardown_tab2,context_tab1 ,context_tab2
 
 pio.templates.default = 'plotly_white'  # set as template
 
@@ -46,35 +46,6 @@ colors_plants = {'Hidroeléctrica': 'blue', 'Turbina de Vapor': 'red', 'Turbina 
                  'Motor Reciprocante': 'brown',
                  'Biomasa': 'coral'}
 
-mardown_text_intro = '''
-    This dashboard showcases my skills in data management and information visualization using
-    data obtained from a custom script I created: [Jupyter Notebook](Data_process/Energy_data_clean.ipynb).
-    
-    The dashboard provides an overview of Guatemala's electricity market from 2004 to 2024, allowing
-    users to explore electricity generation by technology type across various visualizations.
-
-
-    You will find two tabs with the following information:
-    * **First Tab**: Visualize electricity generation by technology over the years with three types of visualization: Line plot, Boxplot, Heatmap and a Pie Chart.
-    * **Second Tab**: Visualize electricity generation by technology over the years with the incorporation of the influence of the Niño–Southern Oscillation on power generation.
-    
-    &nbsp;
-
-    **Note: the technology names will be keep in spanish, as the original data is in spanish.**
-    > _All credits to the original information can be found on the website: [AMM, Administrator de Mercado Mayorista](https://reportesbi.amm.org.gt)._
-    
-    '''
-
-mardown_tab1 = '''
-To analyze the behavior of electric power generation plants in Guatemala during the years 2004 - 2024. Three aspects will be analyzed:
-* Technology generation over time
-* Technology generation per month, with the help of a Heatmap
-                        '''
-
-mardown_tab2 = '''
-To analyze the behavior of the electric power generation plants in Guatemala during the years 2004 - 2024. The following aspects will be analyzed:
-* Influence of the El Niño–Southern Oscillation on power generation
-'''
 
 #Tab 1
 def set_message(text_input_model):
@@ -113,14 +84,21 @@ def set_message_tab2(text_input_model):
     return completion.choices[0].message.content
 
 
-def extract_data_chart_tab2(dataframe_input):
-    dataframe_input['Generación [GWh]'] = dataframe_input['Generación [GWh]'].round(3)
-    dataframe_chart = dataframe_input[['Tipo de generación','Generación [GWh]','Anom']]
+def extract_data_chart_tab2(data_store):
+    technology = data_store[0]['Tipo de generación']
+
+    years = sorted({entry.get("Año") for entry in data_store if entry.get("Año")})
+
+    # Format monthly data (exclude redundant "Tipo de generación")
+    monthly_data = [
+        f"{entry['Mes']} {entry['Año']}: {entry['Generación [GWh]']} (A: {entry['Anom']})"
+        # f"Generation [GWh]: {entry.get('Generación [GWh]', 'N/A')}, "
+        # f"Anomaly: {entry.get('Anom', 'N/A')}"
+        for entry in data_store
+    ]
+    # Combine into a concise string
     return (
-            f"Technology: {dataframe_chart['Tipo de generación'].iloc[0]}\n"
-            f"Years: {dataframe_chart.index.year.unique().tolist()}\n"
-            "Monthly Generación [GWh]:\n" +
-            dataframe_chart[['Generación [GWh]','Anom']].reset_index().to_string(index=False)
+            f"Data {monthly_data}"
     )
 
 # Create a Dash app
@@ -206,7 +184,7 @@ def render_content(tab):
             html.H4('Select the type of technology'),
             dcc.Dropdown(id='select_technology_tab2',
                          options=ts_unique_technology2,
-                         value='Fotovoltaica',
+                         value='Hidroeléctrica',
                          multi=False),
 
             dcc.Graph(id='energy-graph-climate-tab2', figure={}),
@@ -215,15 +193,14 @@ def render_content(tab):
             html.Div(children=[
                 html.H2(children='Analysis by Meta Llama 3-8B',
                         style={'textAlign': 'center'}),
+                dcc.Store(id="data-store"), # Store the data
                 html.Button('Generate Analysis', id='button_analysis', n_clicks=0, disabled=False),
                 html.Div(id='chatbot-responsetab2',
-                         children='Display the analysis here')
+                         children= dcc.Loading(
+                             id='loading-tab2',
+                             type='circle',
+                             children='Display the analysis here'))
         ])
-#             html.Div(id='chatbot-responsetab2',
-#                 children=[
-#                 html.Div(dcc.Markdown())
-#             ])
-
         ])
 
 
@@ -313,14 +290,13 @@ def update_graph_tab1(value_year, technology, chart_type):
 
 
 @app.callback([Output(component_id='energy-graph-climate-tab2', component_property='figure'),
-               Output('chatbot-responsetab2', 'children'),
-               Output('button_analysis', 'disabled')], # Disable button
+               Output("data-store", "data")], # Disable button
               [Input(component_id='select_year_tab2', component_property='value'),
                Input(component_id='select_technology_tab2', component_property='value'),
-               Input('button_analysis', 'n_clicks'),
-               ],)
+               ])
+
 # Set the function to update the graphs
-def update_graph_tab2(value_year, technology, n_clicks):
+def update_graph_tab2(value_year, technology):
     if len(value_year) == 1:
         select_year = value_year
     else:
@@ -336,6 +312,13 @@ def update_graph_tab2(value_year, technology, n_clicks):
     ts_copy.sort_index(inplace=True)
     # print(ts_copy['Tipo de generación'].value_counts())
     # print(set_technology)
+
+    # Filter only the necessary data to store and later call to the chatbot
+    def update_filter_data(dataframe):
+        dataframe['Generación [GWh]'] = dataframe['Generación [GWh]'].round(3)
+        filter_data = dataframe[['Mes','Año','Tipo de generación', 'Generación [GWh]', 'Anom']].to_dict('records')
+        return  filter_data
+
 
     fig = make_subplots(specs=[[{"secondary_y": True}]])
 
@@ -355,23 +338,36 @@ def update_graph_tab2(value_year, technology, n_clicks):
         xaxis_title='Year',
         yaxis_title='Generation [GWh]')
 
-    # Add the button to generate the analysis
-    def send_analysis(clicks, dataframe):
-        if clicks is None or clicks == 0:
-            return 'No analysis generated', False
+    return fig, update_filter_data(ts_copy)
 
-        if clicks == 2:
-            message = '❌You have reached the limit of 1 analysis'
-            return message, True
 
-        else:
-            message = f'{set_message_tab2(extract_data_chart_tab2(dataframe))}'
-            # message = f'{extract_data_chart_tab2(dataframe)}'
-            return message, False
+@app.callback([Output('loading-tab2', 'children'),
+                  # Output('chatbot-responsetab2', 'children'),
+     Output('button_analysis', 'disabled')],
+    Input('button_analysis', 'n_clicks'),
+    State('data-store', 'data'))
 
-    output_message,disable_button = send_analysis(n_clicks, ts_copy)
 
-    return fig, dcc.Markdown(output_message),disable_button
+# Add the button to generate the analysis
+def send_analysis(clicks, store_data):
+    if clicks is None or clicks == 0:
+        return 'No analysis generated', False
+
+    if clicks == 3:
+        message = '❌You have reached the limit of 2 analysis'
+        return message, True
+
+
+    else:
+        # message = f'{extract_data_chart_tab2(store_data)}'
+        message = f'{set_message_tab2(extract_data_chart_tab2(store_data))}'
+
+        return dcc.Markdown(message), False
+
+
+    # output_message, disable_button = send_analysis(n_clicks, ts_copy)
+
+    # return  dcc.Markdown(send_analysis(n_clicks, ts_copy))
 
 
 if __name__ == '__main__':
