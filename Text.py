@@ -51,7 +51,7 @@ Example output for solar data:
 🆚 → 2023 output surpassed 2022 by 25 GWh/month on average.
 ⚠️ → February showed a 30% drop (likely due to panel maintenance).
 
-The information will be: Type of chart plot, type of technology, years and monthly generation [GWh].
+The information will be: type of technology, years and monthly generation [GWh].
 Now analyze this data:
 """
 
@@ -77,7 +77,7 @@ Example format:
 📆 → [Seasonal pattern]  
 🔄 → [Recovery trend]
 
-The information will be: Type of chart plot, type of technology, years, monthly generation [GWh] and 
-Influence of the El Niño–Southern Oscillation.
+The information will be in the following format: Technology name is Month, year, generation in GWh and the El Niño–Southern Oscillation.
+Example of the data Hidroeléctrica is January, 2004, 100 GWh, -0.98.
 Now analyze this data:
 """

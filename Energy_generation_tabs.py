@@ -47,10 +47,10 @@ colors_plants = {'Hidroeléctrica': 'blue', 'Turbina de Vapor': 'red', 'Turbina 
                  'Biomasa': 'coral'}
 
 
-#Tab 1
-def set_message(text_input_model):
+# Text input for the LLM model
+def set_message(context_tab,text_input_model):
     message = [
-        {'role': "system", "content": context_tab1},
+        {'role': "system", "content": context_tab},
         {"role": "user", "content": text_input_model}
     ]
     completion = client.chat.completions.create(messages=message,
@@ -61,43 +61,30 @@ def set_message(text_input_model):
     return completion.choices[0].message.content
 
 
-def extract_data_chart(dataframe_input, type_chart):
-    dataframe_input['Generación [GWh]'] = dataframe_input['Generación [GWh]'].round(3)
-    dataframe_chart = dataframe_input[['Tipo de generación','Generación [GWh]']]
-    return (
-            f"The type of chart for analysis is {type_chart}\n"
-            f"Technology: {dataframe_chart['Tipo de generación'].iloc[0]}\n"
-            f"Years: {dataframe_chart.index.year.unique().tolist()}\n"
-            "Monthly Generación [GWh]:\n" +
-            dataframe_chart['Generación [GWh]'].reset_index().to_string(index=False)
-    )
+def extract_data_chart_tab1(data_store):
+    technology = data_store[0]['Tipo de generación']
 
-#Tab 2
-def set_message_tab2(text_input_model):
-    message = [
-        {'role': "system", "content": context_tab2},
-        {"role": "user", "content": text_input_model}
+    # Format data
+    monthly_data = [
+        f"{entry['Mes']} {entry['Año']}: {entry['Generación [GWh]']}"
+        for entry in data_store
     ]
-    completion = client.chat.completions.create(messages=message,
-                                                max_tokens=800,
-                                                temperature=0,)
-    return completion.choices[0].message.content
+    # Final format
+    return (f"The technology is {technology}. "
+            f"Data {monthly_data}"
+    )
 
 
 def extract_data_chart_tab2(data_store):
     technology = data_store[0]['Tipo de generación']
 
-    years = sorted({entry.get("Año") for entry in data_store if entry.get("Año")})
-
-    # Format monthly data (exclude redundant "Tipo de generación")
+    # Format data
     monthly_data = [
-        f"{entry['Mes']} {entry['Año']}: {entry['Generación [GWh]']} (A: {entry['Anom']})"
-        # f"Generation [GWh]: {entry.get('Generación [GWh]', 'N/A')}, "
-        # f"Anomaly: {entry.get('Anom', 'N/A')}"
+        f"{entry['Mes']} {entry['Año']} : ({entry['Generación [GWh]']} GWh and {entry['Anom']})"
         for entry in data_store
     ]
-    # Combine into a concise string
-    return (
+    # Final format
+    return (f"The technology is {technology}. "
             f"Data {monthly_data}"
     )
 
@@ -150,23 +137,17 @@ def render_content(tab):
             dcc.Graph(id='pie-graph', figure={}),
 
             # Add an analysis of a LLM chatbot
-            html.Div(id='chatbot-response',
-                children=[
-                html.Div(dcc.Markdown('''
-            #### LLM Chatbot response
-            Select the chart to analyze the data and extract 4 key insights as bullet points.
-                ''')),
-                    dcc.RadioItems(options=['Line plot','Boxplot','Heatmap'],
-                                   # value ='Line plot',
-                                   inline=True,
-                                   id='loading-option'),
-                    dcc.Loading(
-                        id="loading",
-                        type='circle',
-                        children=html.Div(id='loading-output')
-                    )
+            html.Div(children= [
+                html.H2(children='Analysis by Meta Llama 3-8B',
+                        style={'textAlign': 'center'}),
+                dcc.Store(id="data-store-tab1"), # Store the data
+                html.Button('Generate Analysis', id='button_analysis_tab1', n_clicks=0, disabled=False),
+                html.Div(id='chatbot-response-tab1',
+                         children= dcc.Loading(
+                             id='loading-tab1',
+                             type='circle',
+                             children='Display the analysis here'))
             ])
-
         ])
 
     elif tab == 'tab-2':
@@ -210,12 +191,11 @@ def render_content(tab):
                Output(component_id='blox-plot', component_property='figure'),
                Output(component_id='heat-map', component_property='figure'),
                Output(component_id='pie-graph', component_property='figure'),
-               Output("loading-output", "children")],
+               Output("data-store-tab1", "data")],
               [Input(component_id='select_year_tab1', component_property='value'),
-               Input(component_id='select_technology_tab1', component_property='value'),
-               Input("loading-option", "value")])
+               Input(component_id='select_technology_tab1', component_property='value')])
 # Set the function to update the graphs
-def update_graph_tab1(value_year, technology, chart_type):
+def update_graph_tab1(value_year, technology):
     if len(value_year) == 1:
         select_year = value_year
     else:
@@ -275,18 +255,35 @@ def update_graph_tab1(value_year, technology, chart_type):
                           insidetextorientation='radial',
                           marker=dict(line=dict(color='black', width=2)))
 
-    # Add the analysis of the chatbot
-    def update_loading_response(value):
+    # Filter only the necessary data to store and later call to the chatbot
+    def update_filter_data_tab1(dataframe):
+        dataframe['Generación [GWh]'] = dataframe['Generación [GWh]'].round(3)
+        filter_data = dataframe[['Mes', 'Año', 'Tipo de generación', 'Generación [GWh]']].to_dict('records')
+        return filter_data
 
-        if value == None:
-            return f'No chart selected for analysis'
-        else:
-            return (f"You selected {value} and the analysis is:\n"
-                    f"\n"
-                    # f"{extract_data_chart(ts_copy, value)}")
-                    f"{set_message(extract_data_chart(ts_copy, value))}")
+    return fig_line, fig_box, fig_heat, fig_pie, update_filter_data_tab1(ts_copy)
 
-    return fig_line, fig_box, fig_heat, fig_pie, dcc.Markdown(update_loading_response(chart_type))
+@app.callback([Output('loading-tab1', 'children'),
+     Output('button_analysis_tab1', 'disabled')],
+    Input('button_analysis_tab1', 'n_clicks'),
+    State('data-store-tab1', 'data'))
+
+
+# Add the button to generate the analysis
+def send_analysis(clicks, store_data):
+    if clicks is None or clicks == 0:
+        return 'No analysis generated', False
+
+    if clicks == 3:
+        message = '❌You have reached the limit of 2 analysis'
+        return message, True
+
+
+    else:
+        # message = f'{extract_data_chart_tab1(store_data)}'
+        message = f'{set_message(context_tab1,extract_data_chart_tab1(store_data))}'
+
+        return dcc.Markdown(message), False
 
 
 @app.callback([Output(component_id='energy-graph-climate-tab2', component_property='figure'),
@@ -360,14 +357,9 @@ def send_analysis(clicks, store_data):
 
     else:
         # message = f'{extract_data_chart_tab2(store_data)}'
-        message = f'{set_message_tab2(extract_data_chart_tab2(store_data))}'
+        message = f'{set_message(context_tab2,extract_data_chart_tab2(store_data))}'
 
         return dcc.Markdown(message), False
-
-
-    # output_message, disable_button = send_analysis(n_clicks, ts_copy)
-
-    # return  dcc.Markdown(send_analysis(n_clicks, ts_copy))
 
 
 if __name__ == '__main__':
