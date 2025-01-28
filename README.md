@@ -4,13 +4,15 @@ Here you will find the code to deploy the dashboard page with the help of docker
 version please visit this [Hugging Face space.](https://huggingface.co/spaces/edmiranda2301/Energy_gt_demo)
 
 The dashboard is a demo of my skills in data visualization and processing. The dashboard is created with 
-the use of Plotly and Dash libraries. This libraries were chosen because of their interactive capabilities.
+the use of Plotly and Dash libraries. These libraries were chosen because of their interactive capabilities.
+Update added a new feature where the information display will be analyzed by a LLM model, 
+in this case the [Meta Llama 3-8B](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct).
 
 You will find two tabs in this dashboard
 * **The first tab** will show the energy generation by 
-  source in Guatemala (A single choice dropdown)
+  source in Guatemala (A single choice dropdown). At the bottom you find an option to receive a analysis by a LLM model.
 * **The second tab** will show the energy generation and 
-  the ENOS index in Guatemala (A single choice dropdown)
+  the ENOS index in Guatemala (A single choice dropdown). At the bottom you find an option to receive a analysis by a LLM model.
 
 
 <br>
@@ -24,5 +26,6 @@ You will find two tabs in this dashboard
 * [AMM 'Administrator de Mercado Mayorista'](https://reportesbi.amm.org.gt), open data source from Guatemala.
 *  Climate for Monthly Niño-3.4 index from [NOAA]( https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/detrend.nino34.ascii.txt)
 * Inspired by this book and repository [Modern Time Series Forecasting with Python by Manu Joseph](https://github.com/PacktPublishing/Modern-Time-Series-Forecasting-with-Python)
+* Modelo de lenguaje de lama [Meta Llama 3-8B](https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct)
 
 Check my [**LinkedIn**](http://www.linkedin.com/in/edgar-enrique-miranda-sandoval-a0731294) for more information about me.

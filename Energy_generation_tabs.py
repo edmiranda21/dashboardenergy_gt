@@ -141,7 +141,8 @@ def render_content(tab):
                 html.H2(children='Analysis by Meta Llama 3-8B',
                         style={'textAlign': 'center'}),
                 dcc.Store(id="data-store-tab1"), # Store the data
-                html.Button('Generate Analysis', id='button_analysis_tab1', n_clicks=0, disabled=False),
+                html.Button('Generate Analysis', id='button_analysis_tab1', n_clicks=0, disabled=False,
+                            style={"fontSize": "17px", "height": 60, "width": 180}),
                 html.Div(id='chatbot-response-tab1',
                          children= dcc.Loading(
                              id='loading-tab1',
@@ -175,7 +176,8 @@ def render_content(tab):
                 html.H2(children='Analysis by Meta Llama 3-8B',
                         style={'textAlign': 'center'}),
                 dcc.Store(id="data-store"), # Store the data
-                html.Button('Generate Analysis', id='button_analysis', n_clicks=0, disabled=False),
+                html.Button('Generate Analysis', id='button_analysis', n_clicks=0, disabled=False,
+                            style={"fontSize": "17px", "height": 60, "width": 180}),
                 html.Div(id='chatbot-responsetab2',
                          children= dcc.Loading(
                              id='loading-tab2',
@@ -283,7 +285,7 @@ def send_analysis(clicks, store_data):
         # message = f'{extract_data_chart_tab1(store_data)}'
         message = f'{set_message(context_tab1,extract_data_chart_tab1(store_data))}'
 
-        return dcc.Markdown(message), False
+        return dcc.Markdown(message, style={"fontSize": "18px"}), False
 
 
 @app.callback([Output(component_id='energy-graph-climate-tab2', component_property='figure'),
@@ -359,7 +361,7 @@ def send_analysis(clicks, store_data):
         # message = f'{extract_data_chart_tab2(store_data)}'
         message = f'{set_message(context_tab2,extract_data_chart_tab2(store_data))}'
 
-        return dcc.Markdown(message), False
+        return dcc.Markdown(message, style={"fontSize": "18px"}), False
 
 
 if __name__ == '__main__':
