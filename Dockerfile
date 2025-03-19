@@ -13,8 +13,8 @@ RUN pip install -r requirements.txt
 
 #M More faster tests
 COPY csv_files ./csv_files
-COPY Energy_generation_tabs.py .
-
+COPY Energy_generation_tabs.py ./
+COPY Text.py ./
 
 ## Make port 80 available to the world outside this container
 EXPOSE 7860

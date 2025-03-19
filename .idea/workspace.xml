@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e158fb7d-345c-42ac-ba3c-314bd62ed61b" name="Changes" comment="Micro update, readme file">
-      <change beforePath="$PROJECT_DIR$/.idea/Dashboard_energy.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Dashboard_energy.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="e158fb7d-345c-42ac-ba3c-314bd62ed61b" name="Changes" comment="Update">
+      <change afterPath="$PROJECT_DIR$/Energy_generation_tests.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Energy_generation_tabs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Energy_generation_tabs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +47,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/edmiranda21/dashboardenergy_gt.git&quot;,
+    &quot;url&quot;: &quot;git@github.com:edmiranda21/dashboardenergy_gt.git&quot;,
     &quot;accountId&quot;: &quot;7be5ef61-10dd-4a21-9894-166738b8a8e2&quot;
   }
 }</component>
@@ -62,49 +64,33 @@
   &quot;keyToString&quot;: {
     &quot;Python.Energy generation_tabs.executor&quot;: &quot;Run&quot;,
     &quot;Python.Energy_generation_tabs.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Energy_generation_tests.executor&quot;: &quot;Run&quot;,
     &quot;Python.Relation_enos.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Text_box_test.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;test&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/edmiranda/PycharmProjects/Dashboard_energy&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;org.jetbrains.plugins.github.ui.GithubSettingsConfigurable&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.inline.completion&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Energy_generation_tabs">
-    <configuration name="Energy generation_tabs" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="Dashboard_energy" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Energy generation_tabs.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Python.Energy_generation_tests">
     <configuration name="Energy_generation_tabs" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Dashboard_energy" />
       <option name="ENV_FILES" value="" />
@@ -120,6 +106,29 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Energy_generation_tabs.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Energy_generation_tests" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Dashboard_energy" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Energy_generation_tests.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -151,19 +160,67 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Dashboard_energy" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Text_box_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Dashboard_energy" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Text_box_test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Energy_generation_tests" />
         <item itemvalue="Python.Energy_generation_tabs" />
+        <item itemvalue="Python.Text_box_test" />
+        <item itemvalue="Python.Test" />
         <item itemvalue="Python.Relation_enos" />
-        <item itemvalue="Python.Energy generation_tabs" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PY-242.23726.102" />
-        <option value="bundled-python-sdk-5e1850174b45-399fe30bd8c1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.23726.102" />
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.25659.43" />
+        <option value="bundled-python-sdk-181015f7ab06-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.25659.43" />
       </set>
     </attachedChunks>
   </component>
@@ -186,7 +243,41 @@
       <workItem from="1716842628146" duration="2247000" />
       <workItem from="1716994858610" duration="1158000" />
       <workItem from="1726242495055" duration="80000" />
-      <workItem from="1730822565212" duration="4411000" />
+      <workItem from="1730822565212" duration="5453000" />
+      <workItem from="1737327639300" duration="4914000" />
+      <workItem from="1737388613329" duration="985000" />
+      <workItem from="1737400581875" duration="140000" />
+      <workItem from="1737407785373" duration="7218000" />
+      <workItem from="1737483956280" duration="5541000" />
+      <workItem from="1737500558446" duration="5110000" />
+      <workItem from="1737558120501" duration="5516000" />
+      <workItem from="1737563643277" duration="127000" />
+      <workItem from="1737646543888" duration="11000" />
+      <workItem from="1737651594959" duration="1327000" />
+      <workItem from="1737656027907" duration="10107000" />
+      <workItem from="1737731062964" duration="8623000" />
+      <workItem from="1737742718403" duration="21000" />
+      <workItem from="1737742747529" duration="2201000" />
+      <workItem from="1737750229421" duration="8513000" />
+      <workItem from="1737830157143" duration="142000" />
+      <workItem from="1737835355868" duration="9117000" />
+      <workItem from="1737994260725" duration="82000" />
+      <workItem from="1737994348503" duration="16101000" />
+      <workItem from="1738079585169" duration="8615000" />
+      <workItem from="1738165348241" duration="7813000" />
+      <workItem from="1738949341748" duration="62000" />
+      <workItem from="1739300375092" duration="65000" />
+      <workItem from="1739307990840" duration="639000" />
+      <workItem from="1739384050048" duration="20000" />
+      <workItem from="1739384287432" duration="60000" />
+      <workItem from="1740349213761" duration="622000" />
+      <workItem from="1740851007428" duration="15000" />
+      <workItem from="1740853179885" duration="45000" />
+      <workItem from="1741834334248" duration="47000" />
+      <workItem from="1741989920712" duration="1901000" />
+      <workItem from="1741991831393" duration="756000" />
+      <workItem from="1742337029462" duration="1219000" />
+      <workItem from="1742401375701" duration="303000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <option name="closed" value="true" />
@@ -260,7 +351,71 @@
       <option name="project" value="LOCAL" />
       <updated>1716845094524</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Update to english">
+      <option name="closed" value="true" />
+      <created>1730827018950</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1730827018950</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Update dataset to 2024 and added new LLM option on both tabs2.">
+      <option name="closed" value="true" />
+      <created>1737755059416</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1737755059416</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Update dataset to 2024">
+      <option name="closed" value="true" />
+      <created>1737755207611</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1737755207611</updated>
+    </task>
+    <task id="LOCAL-00013" summary="LLM added and a new python file added to manage the instructions.">
+      <option name="closed" value="true" />
+      <created>1737835708729</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1737835708729</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Button to disable more than 1 answer added.">
+      <option name="closed" value="true" />
+      <created>1737844471807</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1737844471807</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Added a button and loading option to wait the response from the llm.">
+      <option name="closed" value="true" />
+      <created>1738014690413</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1738014690413</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Done Update model with a LLM chatbot.">
+      <option name="closed" value="true" />
+      <created>1738085743197</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1738085743197</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Update">
+      <option name="closed" value="true" />
+      <created>1738089442184</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1738089442184</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -287,10 +442,22 @@
     <MESSAGE value="Update port name to upload in HS" />
     <MESSAGE value="Update with gunicorn" />
     <MESSAGE value="Micro update, readme file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Micro update, readme file" />
+    <MESSAGE value="Update to english" />
+    <MESSAGE value="Update dataset to 2024 and added new LLM option on both tabs2." />
+    <MESSAGE value="Update dataset to 2024" />
+    <MESSAGE value="LLM added and a new python file added to manage the instructions." />
+    <MESSAGE value="Button to disable more than 1 answer added." />
+    <MESSAGE value="Added a button and loading option to wait the response from the llm." />
+    <MESSAGE value="Done Update model with a LLM chatbot." />
+    <MESSAGE value="Update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Energy_generation_tabs_py$Energy_generation_tabs.coverage" NAME="Energy_generation_tabs Coverage Results" MODIFIED="1741991889294" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Energy_generation_tabs_py$Energy_generation_tests.coverage" NAME="Energy_generation_tests Coverage Results" MODIFIED="1742338201540" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Dashboard_energy$Energy_generation_tabs.coverage" NAME="Energy_generation_tabs Coverage Results" MODIFIED="1738088997654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Dashboard_energy$Text_box_test.coverage" NAME="Text_box_test Coverage Results" MODIFIED="1737994811223" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Dashboard_energy$Test.coverage" NAME="Test Coverage Results" MODIFIED="1737744706434" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Dashboard_energy$Relation_enos.coverage" NAME="Relation_enos Coverage Results" MODIFIED="1716238813776" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Dashboard_energy$Energy_generation_tabs.coverage" NAME="Energy_generation_tabs Coverage Results" MODIFIED="1730826936966" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

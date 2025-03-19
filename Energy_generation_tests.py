@@ -13,6 +13,7 @@ from dash import Dash, dcc, html, Input, Output, callback, dash_table, State
 
 from dotenv import load_dotenv
 from huggingface_hub import InferenceClient
+from openai import OpenAI
 from Text import mardown_text_intro, mardown_tab1, mardown_tab2,context_tab1 ,context_tab2
 
 pio.templates.default = 'plotly_white'  # set as template
@@ -21,10 +22,32 @@ pio.templates.default = 'plotly_white'  # set as template
 
 # Hugging Face API
 load_dotenv()
-token = os.environ.get('HUGGINGFACE_TOKEN')
+# token = os.environ.get('HUGGINGFACE_TOKEN')
+token_openai = os.environ.get('openrouter')
 # Load the model via Inference API (Serverless)
-client = InferenceClient("meta-llama/Meta-Llama-3-8B-Instruct", token=token)
+# client = InferenceClient("meta-llama/Meta-Llama-3-8B-Instruct", token=token)
+client_openai = client = OpenAI(
+  base_url="https://openrouter.ai/api/v1",
+  api_key=token_openai,
+)
 # client = InferenceClient("https://pflgm2locj2t89co.us-east-1.aws.endpoints.huggingface.cloud", token=token)
+
+# OpenAI test
+# test = "What are you?"
+# message = [
+#     {'role': "system", "content": context_tab1},
+#     {"role": "user", "content": test}
+# ]
+# completion = client.chat.completions.create(model ="cognitivecomputations/dolphin3.0-mistral-24b:free",
+#                                             messages=message,
+#                                             max_tokens=800,
+#                                             temperature=0,
+#                                             stream=True)
+
+# print(completion.choices[0].message.content)
+#
+# for chunk in completion:
+#   print(chunk.choices[0].delta.content, end="")
 
 # Working directory
 current_dir = os.getcwd()
@@ -54,7 +77,9 @@ def set_message(context_tab,text_input_model):
         {'role': "system", "content": context_tab},
         {"role": "user", "content": text_input_model}
     ]
-    completion = client.chat.completions.create(messages=message,
+
+    completion = client.chat.completions.create(model="cognitivecomputations/dolphin3.0-mistral-24b:free",
+                                                messages=message,
                                                 max_tokens=800,
                                                 temperature=0)
 
