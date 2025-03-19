@@ -23,7 +23,7 @@ pio.templates.default = 'plotly_white'  # set as template
 # Hugging Face API
 load_dotenv()
 # token = os.environ.get('HUGGINGFACE_TOKEN')
-token_openai = os.environ.get('openrouter')
+token_openai = os.environ.get('OPENAI_API_KEY')
 # Load the model via Inference API (Serverless)
 # client = InferenceClient("meta-llama/Meta-Llama-3-8B-Instruct", token=token)
 client_openai = client = OpenAI(
