@@ -5,7 +5,7 @@ import pandas as pd
 pd.options.mode.copy_on_write = True
 
 # Import the necessary functions
-from Process.Text import mardown_tab2
+from Process.Text import mardown_tab2, markdonw_disclamer
 from Process.Functions import colors_plants, load_data
 from Process.LLM_configure import update_information_tab2
 
@@ -42,6 +42,8 @@ layout_tab2 = html.Div(children=[
             html.Div(children=[
                 html.H2(children='Mistral Small 3.1 24B',
                         style={'textAlign': 'center'}),
+                html.Div(children=[dcc.Markdown(markdonw_disclamer)],
+                            style={'textAlign': 'center',"fontSize": "18px"}),
                 dcc.Store(id="data-store"), # Store the data
                 html.Button('Generate Analysis', id='button_analysis', n_clicks=0, disabled=False,
                             style={"fontSize": "17px", "height": 60, "width": 180}),

@@ -9,5 +9,7 @@ workspace.xml
 Dashboard_energy.iml
 .idea
 Data_process/Energy_demand_gt.ipynb
+csv_files/energy_ENOS_2004-2023.csv
 Text_box_test.py
 Previous_2024.py
+ENSO.docx
