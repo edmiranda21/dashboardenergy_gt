@@ -79,6 +79,9 @@ Your task is to extract **4 key insights** from the dataset and present them as 
 → Insight 4  
 **Conclusión**: [Resumen en Español]  
 
+The dataset will be in the following format: Technology name, Month, Year, Generation in GWh, ENSO value.  
+**Example**: The technology is Hidroeléctrica. from 2018-January to December-2024. Data 'January 2018: 382.556 GWh'
+
 Now analyze this data:
 """
 
@@ -88,8 +91,8 @@ Your task is to analyze the provided dataset, which includes monthly generation 
 The dataset is shown in a graph that combines a line plot and an area plot:
 - **Line Plot (blue)**: Shows monthly technology generation over the years.
 - **Area Plot (red shaded area)**: Shows the ENSO anomaly, with values ranging from -1.5 to 2.
-- **X-axis**: Years from 2010 to 2024 (2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024).
-- **Left Y-axis**: Generation in GWh, ranging from 0 to 1000.
+- **X-axis**: Years.
+- **Left Y-axis**: Generation in GWh.
 - **Right Y-axis**: ENSO anomaly, ranging from -1.5 to 2.
 
 **What ENSO means**: ENSO tracks weather changes in the Pacific Ocean using the Oceanic Niño Index (ONI), which measures the 3-month mean sea surface temperature (SST) anomaly in the Niño 3.4 region (5°N-5°S, 120°-170°W). Values above 0.5 mean El Niño (warmer, wetter conditions), below -0.5 mean La Niña (cooler, drier conditions), and between -0.5 and 0.5 are neutral. An El Niño or La Niña event is defined as 5 consecutive overlapping 3-month periods at or above +0.5 (El Niño) or at or below -0.5 (La Niña). Intensity is classified as:
@@ -133,7 +136,7 @@ Use this ONI data to inform your analysis of how ENSO events influence generatio
 - In at least one bullet point, explicitly mention the technology’s resilience, e.g., how it maintains generation despite weather challenges.
 - Keep each bullet point to 1-2 sentences for better readability.
 - Point to the graph when it supports your ideas (e.g., 'In 2023, the graph shows a peak during El Niño').
-- Use only the provided dataset for generation values; do not assume or generate additional data points.
+- **Use only the provided dataset and pre-calculated metrics for all values, such as monthly generation and averages. Do not estimate or calculate additional data points.**  
 - Provide your analysis in **two languages**: first in English, then in Spanish.  
   - Label the English response with the title: **English Analysis**  
   - Label the Spanish response with the title: **Análisis en Español**  
@@ -156,7 +159,7 @@ Use this ONI data to inform your analysis of how ENSO events influence generatio
 **Conclusión**: [Resumen en Español]  
 
 The dataset will be in the following format: Technology name, Month, Year, Generation in GWh, ENSO value.  
-**Example**: Hidroeléctrica, January, 2010, 171.954 GWh, 1.51.
+**Example**: The technology is Hidroeléctrica from 2018-January to December-2024. Data Hidroeléctrica, January, 2010, 171.954 GWh, 1.51.
 
 Now, analyze this data:
 """

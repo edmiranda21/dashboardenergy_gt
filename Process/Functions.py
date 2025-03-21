@@ -23,6 +23,11 @@ def load_data():
 # Transform data to feed the LLM model in Tab 1
 def extract_data_chart_tab1(data_store):
     technology = data_store[0]['Tipo de generación']
+    # Some calculations
+    min_month = data_store[0]['Mes']
+    min_year = data_store[0]['Año']
+    max_month = data_store[-1]['Mes']
+    max_year = data_store[-1]['Año']
 
     # Format data
     monthly_data = [
@@ -30,13 +35,19 @@ def extract_data_chart_tab1(data_store):
         for entry in data_store
     ]
     # Final format
-    return (f"The technology is {technology}. "
+    return (f"The technology is {technology} "
+            f"from {min_year}-{min_month} to {max_month}-{max_year}. "
             f"Data {monthly_data}"
     )
 
 # Transform data to feed the LLM model in Tab 2
 def extract_data_chart_tab2(data_store):
     technology = data_store[0]['Tipo de generación']
+    # Some calculations
+    min_month = data_store[0]['Mes']
+    min_year = data_store[0]['Año']
+    max_month = data_store[-1]['Mes']
+    max_year = data_store[-1]['Año']
 
     # Format data
     monthly_data = [
@@ -44,6 +55,7 @@ def extract_data_chart_tab2(data_store):
         for entry in data_store
     ]
     # Final format
-    return (f"The technology is {technology}. "
+    return (f"The technology is {technology} "
+            f"from {min_year}-{min_month} to {max_month}-{max_year}. "
             f"Data {monthly_data}"
     )

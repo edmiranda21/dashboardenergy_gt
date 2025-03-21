@@ -26,7 +26,7 @@ def set_message(context_tab,text_input_model):
 
     completion = client.chat.completions.create(model=model,
                                                 messages=message,
-                                                max_tokens=1100,
+                                                max_tokens=1500,
                                                 temperature=0)
 
 
