@@ -3,17 +3,16 @@ import pandas as pd
 pd.options.mode.copy_on_write = True
 from pathlib import Path
 import os
-import time
 # libraries to plot
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import plotly.io as pio
-from dash import Dash, dcc, html, Input, Output, callback, dash_table, State
+from dash import Dash, dcc, html, Input, Output, State
 
 from dotenv import load_dotenv
 from huggingface_hub import InferenceClient
-from Text import mardown_text_intro, mardown_tab1, mardown_tab2,context_tab1 ,context_tab2
+from Process.Text import mardown_text_intro, mardown_tab1, mardown_tab2,context_tab1 ,context_tab2
 
 pio.templates.default = 'plotly_white'  # set as template
 

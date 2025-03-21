@@ -13,7 +13,7 @@ RUN pip install -r requirements.txt
 #M More faster tests
 COPY csv_files ./csv_files
 COPY Energy_generation_tests.py ./
-COPY Text.py ./
+COPY Process/Text.py ./
 
 # New user
 RUN useradd -m userhuggingface
