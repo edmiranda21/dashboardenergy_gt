@@ -14,7 +14,6 @@ RUN pip install -r requirements.txt
 COPY csv_files/energy_ENOS_2004-2024.csv ./csv_files/
 COPY Energy_generation_tabs.py ./
 COPY Process/ ./Process/
-COPY Data_process ./Data_process/
 COPY Tabs/ ./Tabs/
 
 
