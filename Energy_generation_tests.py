@@ -1,13 +1,9 @@
 import pandas as pd
 # Import libraries
 pd.options.mode.copy_on_write = True
-# libraries to plot
 import plotly.io as pio
 from dash import Dash, dcc, html, Input, Output
-
-# from dotenv import load_dotenv
-# from huggingface_hub import InferenceClient
-# from openai import OpenAI
+# libraries to import the callbacks
 from Process.Text import mardown_text_intro
 from Tabs.Tab1_callback import layout_tab1,register_callbacks_tab1
 from Tabs.Tab2_callback import layout_tab2, register_callbacks_tab2
@@ -19,6 +15,7 @@ pio.templates.default = 'plotly_white'  # set as template
 
 # Create a Dash app
 app = Dash(__name__, suppress_callback_exceptions=True)
+
 # For deployment with gunicorn
 server = app.server
 
