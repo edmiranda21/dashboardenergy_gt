@@ -43,8 +43,8 @@ def send_analysis(clicks, store_data, context_tab, extract_data_chart_tab):
 
 
     else:
-        # message = f'{extract_data_chart_tab(store_data)}'
-        message = f'{set_message(context_tab, extract_data_chart_tab(store_data))}'
+        message = f'{extract_data_chart_tab(store_data)}'
+        # message = f'{set_message(context_tab, extract_data_chart_tab(store_data))}'
 
         return dcc.Markdown(message, style={"fontSize": "18px"}), False
 
