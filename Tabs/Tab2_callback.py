@@ -40,7 +40,7 @@ layout_tab2 = html.Div(children=[
 
             # Add an analysis of a LLM chatbot
             html.Div(children=[
-                html.H2(children='Mistral Small 3.1 24B',
+                html.H2(children='Analysis by Google: Gemini 2.0 Flash Experimental',
                         style={'textAlign': 'center'}),
                 html.Div(children=[dcc.Markdown(markdonw_disclamer)],
                             style={'textAlign': 'center',"fontSize": "18px"}),

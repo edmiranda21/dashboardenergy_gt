@@ -21,7 +21,7 @@ def load_data():
 
 
 # Transform data to feed the LLM model in Tab 1
-def extract_data_chart_tab1(data_store):
+def extract_data_chart_tab1(data_store, data_store_distribution):
     technology = data_store[0]['Tipo de generación']
     # Some calculations
     min_month = data_store[0]['Mes']
@@ -37,7 +37,8 @@ def extract_data_chart_tab1(data_store):
     # Final format
     return (f"The technology is {technology} "
             f"from {min_year}-{min_month} to {max_month}-{max_year}. "
-            f"Data {monthly_data}"
+            f"Data {monthly_data}. "
+            f"Kernel Density Estimates (KDEs): {data_store_distribution}"
     )
 
 # Transform data to feed the LLM model in Tab 2

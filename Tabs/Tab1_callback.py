@@ -51,11 +51,12 @@ layout_tab1 = html.Div(children=[
 
             # Add an analysis of a LLM chatbot
             html.Div(children= [
-                html.H2(children='Analysis by Mistral Small 3.1 24B',
+                html.H2(children='Analysis by Google: Gemini 2.0 Flash Experimental',
                         style={'textAlign': 'center'}),
                 html.Div(children=[dcc.Markdown(markdonw_disclamer)],
                          style={'textAlign': 'center', "fontSize": "18px"}),
                 dcc.Store(id="data-store-tab1"), # Store the data
+                dcc.Store(id='data-store-distribution-tab1'), # Store the rigdeline data
                 html.Button('Generate Analysis', id='button_analysis_tab1', n_clicks=0, disabled=False,
                             style={"fontSize": "17px", "height": 60, "width": 180}),
                 html.Div(id='chatbot-response-tab1',
@@ -73,7 +74,8 @@ def register_callbacks_tab1(app):
                    Output(component_id='heat-map', component_property='figure'),
                    Output(component_id='pie-graph', component_property='figure'),
                    Output(component_id='Ridgeline-plot', component_property='figure'),
-                   Output("data-store-tab1", "data")],
+                   Output("data-store-tab1", "data"),
+                   Output("data-store-distribution-tab1", "data")],
                   [Input(component_id='select_year_tab1', component_property='value'),
                    Input(component_id='select_technology_tab1', component_property='value')])
 
@@ -251,9 +253,14 @@ def register_callbacks_tab1(app):
         def update_filter_data_tab1(dataframe):
             dataframe['Generación [GWh]'] = dataframe['Generación [GWh]'].round(3)
             filter_data = dataframe[['Mes', 'Año', 'Tipo de generación', 'Generación [GWh]']].to_dict('records')
-            print(filter_data)
             return filter_data
 
-        return fig_line, fig_box, fig_heat, fig_pie, fig_ridgeline, update_filter_data_tab1(ts_copy)
+        # Store the data in the store component
+        data_store_distribution = [(f"Year: {dist['year']}, Density: {dist['density'].tolist()}, "
+                                    f"Vertical Offset: {dist['vertical_offset']}") for dist in distributions]
+        # print(data_store_distribution)
+
+        return (fig_line, fig_box, fig_heat, fig_pie, fig_ridgeline,
+                update_filter_data_tab1(ts_copy), data_store_distribution)
 
     update_information_tab1(app)
