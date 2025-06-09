@@ -24,7 +24,9 @@ def set_message(context_tab,text_input_model):
         {"role": "user", "content": text_input_model}
     ]
 
-    completion = client.chat.completions.create(model=model,
+    completion = client.chat.completions.create(extra_headers={"HTTP-Referer":"https://huggingface.co/spaces/edmiranda2301/Energy_gt_demo",
+                                                               "X-Title": "Energy_Dashboard"},
+                                                model=model,
                                                 messages=message,
                                                 max_tokens=2500,
                                                 temperature=0)
