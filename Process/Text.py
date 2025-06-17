@@ -1,7 +1,7 @@
 # Text descriptions
 mardown_text_intro = '''
     This dashboard showcases my skills in data management and information visualization using
-    data obtained from a custom script I created: [Jupyter Notebook](Data_process/Energy_data_clean.ipynb).
+    data obtained from a custom script I created: [Jupyter Notebook](Data_process/Energy_data_gt_2024.ipynb).
 
     The dashboard provides an overview of Guatemala's electricity market from 2004 to 2024, allowing
     users to explore electricity generation by technology type across various visualizations.
