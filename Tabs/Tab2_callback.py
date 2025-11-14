@@ -98,6 +98,9 @@ def register_callbacks_tab2(app):
 
         fig.update_yaxes(range=[0, ts_copy['Generación [GWh]'].max() * 1.15],
                          secondary_y=False)
+        # Add a line at the secondary y-axis  as El Niño - strong event
+        fig.add_hline(y=2, line_width=2, line_dash="dash", line_color="red",
+                      name="El Niño-Very Strong", secondary_y=True)
 
         fig.update_layout(
             title=f"<b>Power generation for technology for the years "
@@ -105,6 +108,8 @@ def register_callbacks_tab2(app):
             xaxis_title='Year',
             yaxis_title='Generation [GWh]')
 
+
+        # return fig, update_filter_data(ts_copy)
         return fig, update_filter_data(ts_copy)
 
     update_information_tab2(app)
