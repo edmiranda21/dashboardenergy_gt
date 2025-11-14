@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 # from huggingface_hub import InferenceClient
 from openai import OpenAI
 from Process.Text import context_tab1, context_tab2
-from Process.Functions import extract_data_chart_tab1, extract_data_chart_tab2, build_llm_payload_tab2
+from Process.Functions import extract_data_chart_tab1, build_llm_payload_tab2
 import os
 
 # Hugging Face API

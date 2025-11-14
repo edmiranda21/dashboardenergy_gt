@@ -43,26 +43,6 @@ def extract_data_chart_tab1(data_store, data_store_distribution):
     )
 
 # Transform data to feed the LLM model in Tab 2
-def extract_data_chart_tab2(data_store):
-    technology = data_store[0]['Tipo de generación']
-    # Some calculations
-    min_month = data_store[0]['Mes']
-    min_year = data_store[0]['Año']
-    max_month = data_store[-1]['Mes']
-    max_year = data_store[-1]['Año']
-
-    # Format data
-    monthly_data = [
-        f"{entry['Mes']} {entry['Año']} : ({entry['Generación [GWh]']} GWh and {entry['Anom']})"
-        for entry in data_store
-    ]
-    # Final format
-    return (f"The technology is {technology} "
-            f"from {min_year}-{min_month} to {max_month}-{max_year}. "
-            f"Data {monthly_data}"
-    )
-
-# Transform data to feed the LLM model in Tab 2
 def build_llm_payload_tab2(data_store: list) -> str:
     """
     Input: list of dicts from dcc.Store (output of update_filter_data)
