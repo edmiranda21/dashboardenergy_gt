@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 # from huggingface_hub import InferenceClient
 from openai import OpenAI
 from Process.Text import context_tab1, context_tab2
-from Process.Functions import extract_data_chart_tab1, build_llm_payload_tab1,build_llm_payload_tab2
+from Process.Functions import build_llm_payload_tab1,build_llm_payload_tab2
 import os
 
 # Hugging Face API
@@ -29,8 +29,9 @@ def set_message(context_tab,text_input_model):
                                                 model=model,
                                                 messages=message,
                                                 max_tokens=3500,
+                                                extra_body={"models": ["google/gemini-2.0-flash-exp:free",
+                                                                       "moonshotai/kimi-k2:free"]},
                                                 temperature=0)
-
 
     return completion.choices[0].message.content
 
