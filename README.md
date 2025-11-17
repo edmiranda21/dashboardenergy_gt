@@ -26,7 +26,9 @@ You will find two tabs in this dashboard
 * [AMM 'Administrator de Mercado Mayorista'](https://reportesbi.amm.org.gt), open data source from Guatemala.
 *  Climate for Monthly Niño-3.4 index from [NOAA]( https://origin.cpc.ncep.noaa.gov/products/analysis_monitoring/ensostuff/detrend.nino34.ascii.txt)
 * Inspired by this book and repository [Modern Time Series Forecasting with Python by Manu Joseph](https://github.com/PacktPublishing/Modern-Time-Series-Forecasting-with-Python)
-* Model LLM  [Google: Gemini 2.0 Flash Experimental ](https://openrouter.ai/google/gemini-2.0-flash-exp:free)
+* Models LLM:  [Google: Gemini 2.0 Flash Experimental ](https://openrouter.ai/google/gemini-2.0-flash-exp:free),
+[MoonshotAI: Kimi K2 0711: Free](https://openrouter.ai/moonshotai/kimi-k2:free) or 
+[OpenAI: gpt-oss-20b Free](https://openrouter.ai/openai/gpt-oss-20b:free). I choose a three LLM alternatives, is OpenRouter’s solution name Model routing, used when the providers are down or not available.
 
 ### Project Structure
 
