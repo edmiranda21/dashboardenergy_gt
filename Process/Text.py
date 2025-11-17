@@ -31,7 +31,10 @@ To analyze the behavior of the electric power generation plants in Guatemala dur
 
 markdonw_disclamer = '''
 This analysis is based on the model’s interpretation of the dataset and may contain inaccuracies. 
-For critical decisions, please verify with the raw data or consult an expert.
+For critical decisions, please verify with the raw data or consult an expert. 
+
+&nbsp;
+**The model used for this analysis could be "OpenAI: gpt-oss-20b" or "Google: Gemini 2.0 Flash Experimental the model will tell you"** 
 '''
 
 # Text input for the LLM model
@@ -65,6 +68,7 @@ Rules 📜:
 - Bilingual: English first, then Spanish
 - End each with **Conclusion**: 1 actionable sentence
 - Markdown for dcc.Markdown (headings, bullets)
+-At the conclusion, mention which llm model was used (e.g., "Analysis by OpenAI: gpt-oss-20b")
 
 Output Format (exact — like Tab 2 but 6 insights):
 **English Analysis** 🇬🇧
@@ -131,6 +135,7 @@ Your task is to analyze the **provided JSON dataset** (not the graph) and give *
 - Refer to the **graph** when it supports
 - Output in **English first**, then **Spanish**
 - End each language with a **Conclusion**
+-At the conclusion, mention which llm model was used (e.g., "Analysis by OpenAI: gpt-oss-20b")
 
 **Output Format** (use **exact emojis without the name**):
 **English Analysis**
