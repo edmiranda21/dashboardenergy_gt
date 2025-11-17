@@ -40,7 +40,7 @@ layout_tab2 = html.Div(children=[
 
             # Add an analysis of a LLM chatbot
             html.Div(children=[
-                html.H2(children='Analysis by Google: Gemini 2.0 Flash Experimental',
+                html.H2(children='Analysis by OpenAI: gpt-oss-20b',
                         style={'textAlign': 'center'}),
                 html.Div(children=[dcc.Markdown(markdonw_disclamer)],
                             style={'textAlign': 'center',"fontSize": "18px"}),
@@ -90,21 +90,42 @@ def register_callbacks_tab2(app):
         fig = make_subplots(specs=[[{"secondary_y": True}]])
 
         fig.add_trace(go.Scatter(x=ts_copy.index, y=ts_copy['Generación [GWh]'],
-                                 name=str(set_technology), marker=dict(color=colors_plants[set_technology])),
+                                 name=str(set_technology), marker=dict(color=colors_plants[set_technology]),
+                                 legendgroup="Group1"),
                       secondary_y=False)
 
         fig.add_trace(go.Scatter(x=ts_copy.index, y=ts_copy['Anom'], name='Anomalie-El Niño',
-                                 marker=dict(color='red', opacity=0.1), fill='tozeroy'), secondary_y=True)
+                                 marker=dict(color='red', opacity=0.1), fill='tozeroy',
+                                 legendgroup="Group1"), secondary_y=True)
 
         fig.update_yaxes(range=[0, ts_copy['Generación [GWh]'].max() * 1.15],
                          secondary_y=False)
+        # Add horizontal lines for El Niño events (positive anomalies)
+        fig.add_hline(y=1.0, line_width=2, line_dash="dash", line_color="red",
+                      name="El Niño-Strong", secondary_y=True, legendgroup="Group2",
+                      legendgrouptitle_text='<b>ENSO events</b>', showlegend=True)
+        fig.add_hline(y=1.5, line_width=2, line_dash="dash", line_color="red",
+                      name="El Niño-Strong", secondary_y=True, legendgroup="Group2")
+        fig.add_hline(y=2.0, line_width=2, line_dash="dash", line_color="red",
+                      name="El Niño-Very Strong", secondary_y=True, legendgroup="Group2")
+
+        # Add horizontal lines for La Niña events (negative anomalies)
+
+        fig.add_hline(y=-1.0, line_width=2, line_dash="dash", line_color="blue",
+                      name="La Niña-Moderate", secondary_y=True, legendgroup="Group2")
+        fig.add_hline(y=-1.5, line_width=2, line_dash="dash", line_color="blue",
+                      name="La Niña-Strong", secondary_y=True, legendgroup="Group2",
+                      showlegend=True )
 
         fig.update_layout(
             title=f"<b>Power generation for technology for the years "
                   f"{min(ts_copy.index.year)} - {max(ts_copy.index.year)}</b>",
             xaxis_title='Year',
-            yaxis_title='Generation [GWh]')
+            yaxis_title='Generation [GWh]',
+        legend_title='<b>Technology</b>')
 
+
+        # return fig, update_filter_data(ts_copy)
         return fig, update_filter_data(ts_copy)
 
     update_information_tab2(app)

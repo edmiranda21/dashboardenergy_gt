@@ -3,14 +3,14 @@ from dotenv import load_dotenv
 # from huggingface_hub import InferenceClient
 from openai import OpenAI
 from Process.Text import context_tab1, context_tab2
-from Process.Functions import extract_data_chart_tab1, extract_data_chart_tab2
+from Process.Functions import extract_data_chart_tab1, build_llm_payload_tab1,build_llm_payload_tab2
 import os
 
 # Hugging Face API
 load_dotenv()
 
 token_openai = os.environ.get('OPENAI_API_KEY')
-model = "google/gemini-2.0-flash-exp:free"
+model = "openai/gpt-oss-20b:free"
 
 client_openai = client = OpenAI(
   base_url="https://openrouter.ai/api/v1",
@@ -24,9 +24,11 @@ def set_message(context_tab,text_input_model):
         {"role": "user", "content": text_input_model}
     ]
 
-    completion = client.chat.completions.create(model=model,
+    completion = client.chat.completions.create(extra_headers={"HTTP-Referer":"https://huggingface.co/spaces/edmiranda2301/Energy_gt_demo",
+                                                               "X-Title": "Energy_Dashboard"},
+                                                model=model,
                                                 messages=message,
-                                                max_tokens=2500,
+                                                max_tokens=3500,
                                                 temperature=0)
 
 
@@ -60,7 +62,7 @@ def update_information_tab1(app):
          State('data-store-distribution-tab1', 'data')])
 
     def update_analysis(clicks, store_data, store_data_distribution):
-        return send_analysis(clicks, store_data, context_tab1, extract_data_chart_tab1, store_data_distribution)
+        return send_analysis(clicks, store_data, context_tab1, build_llm_payload_tab1, store_data_distribution)
 
 
 def update_information_tab2(app):
@@ -70,4 +72,4 @@ def update_information_tab2(app):
                   Input('button_analysis', 'n_clicks'),
                   State('data-store', 'data'))
     def update_analysis(clicks, store_data):
-        return send_analysis(clicks, store_data, context_tab2, extract_data_chart_tab2)
+        return send_analysis(clicks, store_data, context_tab2, build_llm_payload_tab2)

@@ -9,7 +9,7 @@ pd.options.mode.copy_on_write = True
 
 # Import the necessary functions
 from Process.Text import mardown_tab1, markdonw_disclamer
-from Process.Functions import colors_plants, load_data
+from Process.Functions import colors_plants, load_data, summarize_ridgeline
 from Process.LLM_configure import update_information_tab1
 
 
@@ -51,7 +51,7 @@ layout_tab1 = html.Div(children=[
 
             # Add an analysis of a LLM chatbot
             html.Div(children= [
-                html.H2(children='Analysis by Google: Gemini 2.0 Flash Experimental',
+                html.H2(children='Analysis by OpenAI: gpt-oss-20b',
                         style={'textAlign': 'center'}),
                 html.Div(children=[dcc.Markdown(markdonw_disclamer)],
                          style={'textAlign': 'center', "fontSize": "18px"}),
@@ -256,8 +256,7 @@ def register_callbacks_tab1(app):
             return filter_data
 
         # Store the data in the store component
-        data_store_distribution = [(f"Year: {dist['year']}, Density: {dist['density'].tolist()}, "
-                                    f"Vertical Offset: {dist['vertical_offset']}") for dist in distributions]
+        data_store_distribution = summarize_ridgeline(distributions)
         # print(data_store_distribution)
 
         return (fig_line, fig_box, fig_heat, fig_pie, fig_ridgeline,
