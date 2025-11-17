@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 # from huggingface_hub import InferenceClient
 from openai import OpenAI
 from Process.Text import context_tab1, context_tab2
-from Process.Functions import extract_data_chart_tab1, build_llm_payload_tab2
+from Process.Functions import extract_data_chart_tab1, build_llm_payload_tab1,build_llm_payload_tab2
 import os
 
 # Hugging Face API
@@ -28,7 +28,7 @@ def set_message(context_tab,text_input_model):
                                                                "X-Title": "Energy_Dashboard"},
                                                 model=model,
                                                 messages=message,
-                                                max_tokens=2500,
+                                                max_tokens=3500,
                                                 temperature=0)
 
 
@@ -48,8 +48,8 @@ def send_analysis(clicks, store_data, context_tab, extract_data_chart_tab, store
         message = f'{set_message(context_tab, extract_data_chart_tab(store_data))}'
         return dcc.Markdown(message, style={"fontSize": "18px"}), False
     else:
-        message = f'{extract_data_chart_tab(store_data, store_data_distribution)}'
-        # message = f'{set_message(context_tab, extract_data_chart_tab(store_data, store_data_distribution))}'
+        # message = f'{extract_data_chart_tab(store_data, store_data_distribution)}'
+        message = f'{set_message(context_tab, extract_data_chart_tab(store_data, store_data_distribution))}'
         return dcc.Markdown(message, style={"fontSize": "18px"}), False
 
 # Obtain information from the current dashboard
@@ -62,7 +62,7 @@ def update_information_tab1(app):
          State('data-store-distribution-tab1', 'data')])
 
     def update_analysis(clicks, store_data, store_data_distribution):
-        return send_analysis(clicks, store_data, context_tab1, extract_data_chart_tab1, store_data_distribution)
+        return send_analysis(clicks, store_data, context_tab1, build_llm_payload_tab1, store_data_distribution)
 
 
 def update_information_tab2(app):
