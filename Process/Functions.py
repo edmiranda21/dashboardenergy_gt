@@ -52,7 +52,7 @@ def summarize_ridgeline(distributions):
         x = np.array(dist['x_range'])
 
         # Detect peak values
-        peaks, _ = find_peaks(density, prominence=0.1, height=0.2)
+        peaks, _ = find_peaks(density, prominence=0.05, height=0.2)
         n_peaks = len(peaks)
 
         dist_type = {0: "flat", 1: "unimodal", 2: "bimodal"}.get(n_peaks, "multimodal")
