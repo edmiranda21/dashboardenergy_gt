@@ -27,7 +27,7 @@ layout_tab2 = html.Div(children=[
             html.H4('Select the year'),
             dcc.Dropdown(id='select_year_tab2',
                          options=ts_unique_years,
-                         value=[2018, 2019, 2020, 2021, 2022, 2023, 2024],  # Needed if multi=True
+                         value=[2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],  # Needed if multi=True
                          multi=True),
 
             html.H4('Select the type of technology'),

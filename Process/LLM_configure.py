@@ -28,12 +28,16 @@ def set_message(context_tab,text_input_model):
                                                                "X-Title": "Energy_Dashboard"},
                                                 model=model,
                                                 messages=message,
-                                                max_tokens=3500,
-                                                extra_body={"models": ["google/gemini-2.0-flash-exp:free",
+                                                max_tokens=8500,
+                                                extra_body={"models": ["xiaomi/mimo-v2-flash:free",
+                                                                       "google/gemini-2.0-flash-exp:free",
                                                                        "moonshotai/kimi-k2:free"]},
                                                 temperature=0)
-
-    return completion.choices[0].message.content
+    content = completion.choices[0].message.content
+    model_name = completion.model
+    name = f"\n\n*Analysis by {model_name}*"
+    final_message = content + name
+    return final_message
 
 # Send the analysis to the LLM model
 def send_analysis(clicks, store_data, context_tab, extract_data_chart_tab, store_data_distribution=None):

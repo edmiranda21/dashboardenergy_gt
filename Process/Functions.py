@@ -18,7 +18,7 @@ def load_data():
     working_dir = Path(current_dir) / 'csv_files'
 
     # Load and process the data
-    ts = pd.read_csv(working_dir / 'energy_ENOS_2004-2024.csv', encoding='utf8', index_col=0)
+    ts = pd.read_csv(working_dir / 'energy_ENOS_2004-2025.csv', encoding='utf8', index_col=0)
     ts.index = pd.to_datetime(ts.index)
     return ts
 
