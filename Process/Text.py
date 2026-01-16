@@ -68,7 +68,7 @@ Rules 📜:
 - Bilingual: English first, then Spanish
 - End each with **Conclusion**: 1 actionable sentence
 - Markdown for dcc.Markdown (headings, bullets)
--At the conclusion, mention which llm model was used (e.g., "Analysis by OpenAI: gpt-oss-20b")
+-At the conclusion, mention which llm model you are using "Analysis by YOUR LLM model name"
 
 Output Format (exact — like Tab 2 but 6 insights):
 **English Analysis** 🇬🇧
@@ -135,7 +135,7 @@ Your task is to analyze the **provided JSON dataset** (not the graph) and give *
 - Refer to the **graph** when it supports
 - Output in **English first**, then **Spanish**
 - End each language with a **Conclusion**
--At the conclusion, mention which llm model was used (e.g., "Analysis by OpenAI: gpt-oss-20b")
+-At the conclusion, mention which llm model you are using "Analysis by YOUR LLM model name"
 
 **Output Format** (use **exact emojis without the name**):
 **English Analysis**

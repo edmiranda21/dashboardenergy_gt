@@ -55,7 +55,7 @@ layout_tab2 = html.Div(children=[
         ])
         ])
 
-# Register callbacks for Tab 1
+# Register callbacks for Tab 2
 def register_callbacks_tab2(app):
     @app.callback([Output(component_id='energy-graph-climate-tab2', component_property='figure'),
                    Output("data-store", "data")],  # Disable button

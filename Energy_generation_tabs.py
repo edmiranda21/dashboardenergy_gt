@@ -7,6 +7,7 @@ from dash import Dash, dcc, html, Input, Output
 from Process.Text import mardown_text_intro
 from Tabs.Tab1_callback import layout_tab1,register_callbacks_tab1
 from Tabs.Tab2_callback import layout_tab2, register_callbacks_tab2
+from Tabs.Tab3_callback import layout_tab3, register_callbacks_tab3
 
 
 pio.templates.default = 'plotly_white'  # set as template
@@ -27,6 +28,7 @@ app.layout = html.Div(children=[
              children=[
                  dcc.Tab(label='Power Generation', value='tab-1'),
                  dcc.Tab(label='Climate & Energy', value='tab-2'),
+                 dcc.Tab(label='Hourly analysis', value='tab-3'),
              ]),
     html.Div(id='tabs-content'),
 ])
@@ -43,11 +45,15 @@ def render_content(tab):
     elif tab == 'tab-2':
         return layout_tab2
 
+    elif tab == 'tab-3':
+        return layout_tab3
+
 
 # Call the function to register the callbacks tab1
 register_callbacks_tab1(app)
 register_callbacks_tab2(app)
+register_callbacks_tab3(app)
 
 
 if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0', port=7860)
+    app.run(debug=True, host='0.0.0.0', port=7860)

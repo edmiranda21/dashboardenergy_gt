@@ -10,7 +10,7 @@ import os
 load_dotenv()
 
 token_openai = os.environ.get('OPENAI_API_KEY')
-model = "openai/gpt-oss-20b:free"
+model = "xiaomi/mimo-v2-flash:free"
 
 client_openai = client = OpenAI(
   base_url="https://openrouter.ai/api/v1",
